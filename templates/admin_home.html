@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('/static/images/background.jpg'); /* Path to your background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto; /* Adjusted margin for better appearance */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: white; /* Updated text color for better visibility */
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .logout-btn {
+            float: right;
+            background-color: #f44336; /* Red color for logout button */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .logout-btn:hover {
+            background-color: #d32f2f; /* Darker red on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome Admin!</h1>
+    <div class="container">
+        <a href="/login" class="logout-btn">Logout</a>
+        <h2>Inventory Management</h2>
+
+        <form action="/inventory_management" method="post">
+            <label for="table_select">Select Table:</label>
+            <select id="table_select" name="table_select" required>
+                <option value="product">product</option>
+                <option value="admins">admins</option>
+                <option value="customer">customer</option>
+                <option value="deliverydriver">deliverydriver</option>
+                <option value="deliveryassignment">deliveryassignment</option>
+                <option value="orders">orders</option>
+                <option value="orderitem">orderitem</option>
+                <option value="transaction">transaction</option>
+            </select><br><br>
+
+            <label for="crud_operation">Select CRUD Operation:</label>
+            <select id="crud_operation" name="crud_operation" required>
+                <option value="view">View</option>
+                <option value="add">Add</option>
+                <option value="edit">Edit</option>
+                <option value="delete">Delete</option>
+            </select><br><br>
+
+            <input type="submit" class="btn" value="Submit">
+        </form>
+    </div>
+</body>
+
+</html>
+
