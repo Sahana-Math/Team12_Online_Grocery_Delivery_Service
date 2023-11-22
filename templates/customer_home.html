@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Online Grocery Store</title>
+    <!-- Include Bootstrap CSS (you may need to adjust the path based on your project structure) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script>
+        // Add a timeout to automatically hide the flash message after 5 seconds
+        setTimeout(function () {
+            var alert = document.querySelector('.alert');
+            if (alert) {
+                alert.style.display = 'none';
+            }
+        }, 3000); // Adjust the duration (in milliseconds) as needed
+    </script>
+</head>
+
+<body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="alert alert-success">
+        {% for category, message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Online Grocery Store</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <!-- Update the href attribute to point to the correct route or URL for browsing products -->
+                    <a class="nav-link" href="{{ url_for('browse_products') }}">Browse Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('view_cart') }}">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('account') }}">Account</a>
+                </li>
+                <li class="nav-item">
+                    <form action="{{ url_for('logout') }}" method="post">
+                        <button type="submit" class="nav-link btn btn-link">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <!-- Display personalized welcome message -->
+        {% if username %}
+        <h2>Welcome to Your Online Grocery Home, {{ username }}!</h2>
+        {% else %}
+        <h2>Welcome to Your Online Grocery Home</h2>
+        {% endif %}
+
+        <p>Explore our products and start filling your cart!</p>
+
+        <!-- Display the products -->
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/product_' + product.ProductID|string ~ '.jpg') }}"
+                        class="card-img-top" alt="Product Image" width="300" height="200">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.ProductName }}</h5>
+                        <p class="card-text">Price: ₹{{ product.Price }}</p>
+                        <p class="card-text">Quantity in Stock: {{ product.QuantityInStock }}</p>
+                        <p class="card-text">{{ product.Description }}</p>
+
+                        <!-- Add to Cart Form -->
+                        <form action="{{ url_for('add_to_cart', product_id=product.ProductID) }}" method="post">
+                            <input type="hidden" name="product_id" value="{{ product.ProductID }}">
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and dependencies (you may need to adjust the path based on your project structure) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UoJfT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // Function to clear the cart when the page is closed
+        window.addEventListener('beforeunload', function () {
+            // Make an AJAX request to your Flask route to clear the cart
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/clear_cart_on_close', true);
+            xhr.send();
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Account</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            /* Light Grayish Blue */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #28a745;
+            /* Success Green */
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            /* Light Gray */
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #28a745;
+            /* Success Green */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button:hover {
+            background-color: #218838;
+            /* Darker Green on Hover */
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Your existing navbar code here -->
+    </nav>
+
+    <div class="container">
+        {% if customer %}
+        <h2 class="text-center mb-4">Customer Details</h2>
+        <!-- Add an image using the img tag -->
+        <p><strong>Customer ID:</strong> {{ customer.CustomerID }}</p>
+        <p><strong>Name:</strong> {{ customer.FirstName }} {{ customer.LastName }}</p>
+        <p><strong>Email:</strong> {{ customer.EmailID }}</p>
+        <p><strong>Username:</strong> {{ customer.Username }}</p>
+        <p><strong>Phone Number:</strong> {{ customer.PhoneNo }}</p>
+        <p><strong>Address:</strong> {{ customer.Address }}</p>
+        <!-- Add more customer details as needed -->
+        {% else %}
+        <p>Customer not found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Include Bootstrap JS and dependencies here if needed -->
+</body>
+
+</html>
