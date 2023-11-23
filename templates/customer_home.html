@@ -42,7 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ url_for('customer_home') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <!-- Update the href attribute to point to the correct route or URL for browsing products -->
@@ -62,6 +62,17 @@
             </ul>
         </div>
     </nav>
+
+    <div class="container mt-3">
+        <form action="{{ url_for('filter_products') }}" method="post" class="form-inline">
+            <label class="mr-2">Sort by Price:</label>
+            <select class="form-control mr-2" name="sort_order">
+                <option value="low_to_high">Low to High</option>
+                <option value="high_to_low">High to Low</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </form>
+    </div>
 
     <div class="container mt-5">
         <!-- Display personalized welcome message -->
